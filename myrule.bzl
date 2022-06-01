@@ -52,6 +52,6 @@ myrule_validation_test = rule(
     implementation = _myrule_validation_test_impl,
     attrs = {"target": attr.label(allow_single_file=True),
              "_script": attr.label(allow_single_file=True,
-                                   default="myrule_validator.sh.template")},
+                                   default=Label("//:my_template"))},
     test = True,
 )

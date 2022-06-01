@@ -29,6 +29,12 @@ myrule_validation(
     template = "myrule_validator.sh.template"
 )
 
+filegroup(
+    name = "my_template",
+    srcs = [":myrule_validator.sh.template"],
+)
+
+
 myrule_validation_test(
     name = "validate_mytarget",
     target = ":mytarget"
