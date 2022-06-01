@@ -1,4 +1,4 @@
-load('myrule.bzl', 'myrule', 'myrule_validation')
+load('myrule.bzl', 'myrule', 'myrule_validation', 'myrule_validation_test')
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 
 myrule(
@@ -27,4 +27,9 @@ myrule_validation(
     name = "script",
     target = ":mytarget",
     template = "myrule_validator.sh.template"
+)
+
+myrule_validation_test(
+    name = "validate_mytarget",
+    target = ":mytarget"
 )
