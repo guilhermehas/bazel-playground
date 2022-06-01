@@ -1,0 +1,30 @@
+load('myrule.bzl', 'myrule', 'myrule_validation')
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+
+myrule(
+    name = "mytarget"
+)
+
+filegroup(
+    name = "myrule_validator",
+    srcs = [":mytarget"],
+)
+
+sh_test(
+    name = "validate_myrule",
+    srcs = ["myrule_validator.sh"],
+    args = ["mytarget.out"],
+    data = [":myrule_validator"],
+)
+
+diff_test(
+    name = "same_abc",
+    file1 = ":mytarget",
+    file2 = "abc.txt"
+)
+
+myrule_validation(
+    name = "script",
+    target = ":mytarget",
+    template = "myrule_validator.sh.template"
+)
