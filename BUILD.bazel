@@ -5,16 +5,11 @@ myrule(
     name = "mytarget"
 )
 
-filegroup(
-    name = "myrule_validator",
-    srcs = [":mytarget"],
-)
-
 sh_test(
     name = "validate_myrule",
     srcs = ["myrule_validator.sh"],
     args = ["mytarget.out"],
-    data = [":myrule_validator"],
+    data = [":mytarget"],
 )
 
 diff_test(
@@ -33,7 +28,6 @@ filegroup(
     name = "my_template",
     srcs = [":myrule_validator.sh.template"],
 )
-
 
 myrule_validation_test(
     name = "validate_mytarget",

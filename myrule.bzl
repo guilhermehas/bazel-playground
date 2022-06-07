@@ -3,7 +3,7 @@ def _myrule_impl(ctx):
     out = ctx.actions.declare_file(ctx.label.name + ".out")
     ctx.actions.write(out, "abc")
     return [
-        DefaultInfo(files = depset([out]))
+        DefaultInfo(files = depset([out]), runfiles=ctx.runfiles(files=[out]))
     ]
 
 myrule = rule(
