@@ -1,13 +1,15 @@
 def _agda_impl(ctx):
     """Rule that just generates a file and returns a provider."""
-    compiler = ctx.files.compiler[0]
+    compiler = ctx.file.compiler
     inputs = ctx.files.inputs
-    file_name = inputs[0].path
-    out = ctx.actions.declare_file("html/a.html")
+    input = inputs[0]
+    file_name = input.path
+    html_name = input.basename[:-len(input.extension)] + "html"
+    out = ctx.actions.declare_directory("html")
     ctx.actions.run(
         mnemonic = "agda",
         inputs = inputs,
-        arguments = [ "--no-libraries", "-i", inputs[0].dirname, "--html", "--html-dir", out.dirname , file_name ],
+        arguments = [ "--no-libraries", "-i", input.dirname, "--html", "--html-dir", out.path , file_name ],
         executable = compiler,
         outputs = [ out ],
     )

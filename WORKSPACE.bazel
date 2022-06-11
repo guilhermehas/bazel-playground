@@ -18,12 +18,12 @@ local_repository(
 
 load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_dependencies")
 rules_nixpkgs_dependencies()
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl"
-    , "nixpkgs_local_repository"
-    , "nixpkgs_git_repository"
-    , "nixpkgs_package"
-    , "nixpkgs_python_configure"
-    ,)
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl",
+     "nixpkgs_local_repository",
+     "nixpkgs_git_repository",
+     "nixpkgs_package",
+     "nixpkgs_python_configure",
+    )
 
 nixpkgs_local_repository(
     name = "nixpkgs",

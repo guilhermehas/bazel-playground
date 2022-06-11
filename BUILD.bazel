@@ -50,5 +50,5 @@ test_suite(
 
 filegroup(
     name = "my_file",
-    srcs = [ "@simple_file//:agda-nix"],
+    srcs = [ "@simple_file//:agda-nix" ],
 )
