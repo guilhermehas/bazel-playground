@@ -9,3 +9,43 @@ http_archive(
 )
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 bazel_skylib_workspace()
+
+
+local_repository(
+    name = "io_tweag_rules_nixpkgs",
+    path = "../rules_nixpkgs",
+)
+
+load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_dependencies")
+rules_nixpkgs_dependencies()
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl"
+    , "nixpkgs_local_repository"
+    , "nixpkgs_git_repository"
+    , "nixpkgs_package"
+    , "nixpkgs_python_configure"
+    ,)
+
+nixpkgs_local_repository(
+    name = "nixpkgs",
+    nix_file = "//:nixpkgs.nix",
+    nix_file_deps = ["//:nixpkgs.json"],
+)
+
+nixpkgs_python_configure(
+    python2_attribute_path = "python2",
+    repository = "@nixpkgs",
+)
+
+
+nixpkgs_package(
+    name = "nixpkgs_test",
+    nix_file = "//:test.nix",
+    repository = "@nixpkgs",
+)
+
+nixpkgs_package(
+    name = "simple_file",
+    nix_file_deps = ["//:agda.bzl", "//:a.agda"],
+    nix_file = "//:file.nix",
+    repository = "@nixpkgs",
+)

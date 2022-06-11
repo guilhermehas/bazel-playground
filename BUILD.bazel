@@ -1,5 +1,7 @@
-load('myrule.bzl', 'myrule', 'myrule_validation', 'myrule_validation_test')
+load('myrule.bzl', 'myrule', 'myrule_validation')
+load('myrule_test.bzl', 'myrule_validation_test')
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load('agda.bzl', 'agda')
 
 myrule(
     name = "mytarget"
@@ -32,4 +34,21 @@ filegroup(
 myrule_validation_test(
     name = "validate_mytarget",
     target = ":mytarget"
+)
+
+agda(
+    name = "agda",
+    inputs = ["a.agda"],
+)
+
+test_suite(
+    name = "nixpkgs_test-suit",
+    tests = [
+        "@nixpkgs_test//:python2-test",
+    ],
+)
+
+filegroup(
+    name = "my_file",
+    srcs = [ "@simple_file//:agda-nix"],
 )
