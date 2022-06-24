@@ -50,3 +50,19 @@ nixpkgs_package(
     nix_file = "//:file.nix",
     repository = "@nixpkgs",
 )
+
+
+nixpkgs_package(
+    name = "agda",
+    attribute_path = "agda",
+    repository = "@nixpkgs",
+)
+
+nixpkgs_package(
+    name = "agda-cub",
+    nix_file_deps = ["//:agda.bzl", "//:a.agda"],
+    nix_file = "//:cubical.nix",
+    repository = "@nixpkgs",
+)
+
+register_toolchains("//agda")

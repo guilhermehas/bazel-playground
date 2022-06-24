@@ -37,7 +37,7 @@ myrule_validation_test(
 )
 
 agda(
-    name = "agda",
+    name = "agda-ex",
     inputs = ["a.agda"],
 )
 
@@ -51,4 +51,14 @@ test_suite(
 filegroup(
     name = "my_file",
     srcs = [ "@simple_file//:agda-nix" ],
+)
+
+filegroup(
+    name = "agda-g",
+    srcs = [ "@agda//:bin/agda" ],
+)
+
+filegroup(
+    name = "cub",
+    srcs = [ "@agda-cub" ],
 )

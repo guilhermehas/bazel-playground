@@ -28,3 +28,24 @@ agda = rule(
         ),
     },
 )
+
+def _agda_library_impl(ctx):
+    inp = ctx.files.inputs[0]
+    out = ctx.actions.declare_directory("Cubical")
+    
+    ctx.actions.run_shell(
+        inputs = [inp],
+        command = "cp -r %s/* %s" % (inp.path, out.path),
+        outputs = [out],
+    )
+
+    return [
+        DefaultInfo(files = depset([out]))
+    ]
+
+agda_library = rule(
+    implementation = _agda_library_impl,
+    attrs = {
+        "inputs": attr.label_list(),
+    },
+)
