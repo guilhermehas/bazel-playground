@@ -13,16 +13,10 @@ pkgs.buildEnv {
     cp -r ${cubical} $out/cub
 
     cat >$out/BUILD.bazel <<'EOF_BUILD'
-    load('agda.bzl', 'agda_library')
 
     filegroup(
-        name = "agda-cub-files",
-        srcs = ["cub"],
-    )
-
-    agda_library(
         name = "agda-cub",
-        inputs = [":agda-cub-files"],
+        srcs = ["cub"],
         visibility = ["//visibility:public"],
     )
 

@@ -1,0 +1,41 @@
+load('//:agda.bzl', 'agda', 'agda_library')
+load('lib.bzl', 'lib', 'lib2', 'agda_exe')
+load('lib-agda.bzl', 'agda_lib2', 'agda_exe2')
+
+agda_library(
+    name = "testing",
+    inputs = glob(["**/*.agda", "*.agda-lib"]),
+)
+
+filegroup(
+    name = "fagda",
+    srcs = glob(["**/*.agda", "*.agda-lib"]),
+)
+
+lib(
+    name = "my-lib",
+    fgroup = [":fagda"],
+    agda_lib = [":testing"]
+)
+
+lib2(
+    name = "agda-lib",
+    agda_files = glob(["**/*.agda"]),
+    agda_lib = "testing.agda-lib",
+)
+
+agda_exe(
+    name = "agda-ex",
+    agda_libs = [":agda-lib"],
+)
+
+agda_lib2(
+    name = "agda-lib2",
+    agda_files = glob(["**/*.agda"]),
+    agda_lib = "testing.agda-lib",
+)
+
+agda_exe2(
+    name = "agda-exe2",
+    agda_lib = ":agda-lib2",
+)

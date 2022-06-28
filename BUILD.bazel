@@ -1,7 +1,7 @@
 load('myrule.bzl', 'myrule', 'myrule_validation')
 load('myrule_test.bzl', 'myrule_validation_test')
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
-load('agda.bzl', 'agda')
+load('agda.bzl', 'agda', 'agda_library')
 
 myrule(
     name = "mytarget"
@@ -58,7 +58,12 @@ filegroup(
     srcs = [ "@agda//:bin/agda" ],
 )
 
-filegroup(
+agda_library(
     name = "cub",
-    srcs = [ "@agda-cub" ],
+    inputs = [ "@agda-cub" ]
+)
+
+agda_library(
+    name = "cub2",
+    inputs = [ "@agda-cub2" ]
 )
